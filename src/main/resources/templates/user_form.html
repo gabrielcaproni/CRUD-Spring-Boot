@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<div th:replace="cabecalho :: head"></div>
+	
+	<title>Crud Manager - Usuário</title>
+</head>
+
+<body>
+	<div class="container m-2">
+		<div class="offset-md-4">
+			<h2>Usuário</h2>
+			<form action="#" 
+			      method="POST" 
+			      th:action="@{/users/new}"
+			      th:object="${user}">
+				
+				<input type="hidden" id="id" th:field="*{id}">
+				
+				<span th:if="${#fields.hasErrors('name')}"
+					  th:errors="*{name}"
+				      class="text-danger">
+				</span>
+				<input type="text" id="name" th:field="*{name}" 
+				       class="form_control mb-3 col-8"
+				       placeholder="Nome ">
+				 
+				<br />   
+				<span th:if="${#fields.hasErrors('gender')}"
+					  th:errors="*{gender}"
+				      class="text-danger">
+				</span>
+				<br />
+				<input type="text" id="gender" th:field="*{gender}" 
+				       class="form_control mb-3 col-8"
+				       placeholder="Sexo ">
+				     
+				<br />  
+				<span th:if="${#fields.hasErrors('email')}"
+					  th:errors="*{email}"
+				      class="text-danger">
+				</span>
+				<br />
+				<input type="email" id="email" th:field="*{email}" 
+				       class="form_control mb-3 col-8"
+				       placeholder="Email ">
+				<br />
+				
+				<!-- Dados do endereço -->
+				<input type="hidden" id="id" th:field="*{address.id}">
+				
+				<span th:if="${#fields.hasErrors('address.place')}"
+					  th:errors="*{address.place}"
+				      class="text-danger">
+				</span>
+				<br />
+				<input type="text" id="place" th:field="*{address.place}" 
+				       class="form_control mb-3 col-8"
+				       placeholder="Rua ">
+			
+			   <br />
+			   <span th:if="${#fields.hasErrors('address.number')}"
+					  th:errors="*{address.number}"
+				      class="text-danger">
+				</span>
+				<br />
+		       <input type="number" id="number" th:field="*{address.number}" 
+		       class="form_control mb-3 col-8"
+		       placeholder="Número ">
+		       
+		       <br />
+		       <span th:if="${#fields.hasErrors('address.zipCode')}"
+					  th:errors="*{address.zipCode}"
+				      class="text-danger">
+				</span>
+				<br />
+		       <input type="text" id="zipcode" th:field="*{address.zipCode}" 
+		       class="form_control mb-3 col-8"
+		       placeholder="CEP ">
+		       
+		       </br>
+				
+			   <button type="submit" class="btn btn-primary col-2">
+				 Cadastrar
+			   </button>
+			</form>
+		</div>		
+	</div>
+</body>

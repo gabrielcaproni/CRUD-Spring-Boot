@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<div th:replace="cabecalho :: head"></div>
+	
+	<title>Crud Manager Spring - Usuários</title>
+</head>
+
+<body>
+
+	<div class="container my-3">
+		<h1>Usuários</h1>	
+		
+		<div>
+			<a th:href="@{/users/form}" 
+			   class="btn btn-primary mb-3 float-right">Adicionar usuário</a>
+		</div>
+		
+		<table class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nome</th>
+					<th>Gênero</th>
+					<th>E-mail</th>
+					<th>Endereço</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each=" user : ${usuarios} ">
+					<td th:text="${user.id}"></td>
+					<td th:text="${user.name}"></td>
+					<td th:text="${user.gender}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.address.place + ', nº ' + user.address.number}">
+					</td>
+					<td>	
+						<a th:href="@{/users/update/{id}(id=${user.id})}"
+						   class="btn btn-primary">
+							Alterar
+						</a>
+						
+						<a th:href="@{/users/delete/{id}(id=${user.id})}"
+						   class="btn btn-danger">
+							Deletar
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+
+</html>
