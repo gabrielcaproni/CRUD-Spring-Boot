@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="cabecalho :: head"></div>
+	<title>Cadastro de Cliente</title>
+</head>
+<body>
+	<div class="container my-4">
+		<div class="col-md-8 offset-md-2">
+			<h2>Cadastro de Cliente</h2>
+			<form action="#" method="POST" th:action="@{/clientes/new}" th:object="${cliente}">
+				
+				<input type="hidden" id="id" th:field="*{id}">
+				
+				<div class="form-group">
+					<label for="nome">Nome</label>
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger d-block"></span>
+					<input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Nome do Cliente">
+				</div>
+
+				<div class="form-group mt-3">
+					<label for="email">Email</label>
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger d-block"></span>
+					<input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Email do Cliente">
+				</div>
+
+				<div class="form-group mt-3">
+					<label for="telefone">Telefone</label>
+					<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger d-block"></span>
+					<input type="text" id="phone" th:field="*{phone}" class="form-control" placeholder="Telefone para contato">
+				</div>
+
+				<div class="form-group mt-3">
+					<label for="departamento">Departamento</label>
+					<span th:if="${#fields.hasErrors('department')}" th:errors="*{department}" class="text-danger d-block"></span>
+					<input type="text" id="department" th:field="*{department}" class="form-control" placeholder="Departamento (Opcional)">
+				</div>
+				
+				<button type="submit" class="btn btn-primary mt-4">Salvar</button>
+				<a th:href="@{/clientes}" class="btn btn-secondary mt-4">Cancelar</a>
+			</form>
+		</div>		
+	</div>
+</body>
+</html>

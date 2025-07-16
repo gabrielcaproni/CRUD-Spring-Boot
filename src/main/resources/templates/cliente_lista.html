@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="cabecalho :: head"></div>
+	<title>Lista de Clientes</title>
+</head>
+<body>
+	<div class="container my-3">
+		<div class="d-flex justify-content-between align-items-center">
+			<h1>Clientes</h1>
+			<a th:href="@{/clientes/form}" class="btn btn-primary mb-3">Adicionar Cliente</a>
+		</div>
+		
+		<table class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Telefone</th>
+					<th>Departamento</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente : ${clientes}">
+					<td th:text="${cliente.id}"></td>
+					<td th:text="${cliente.name}"></td>
+					<td th:text="${cliente.email}"></td>
+					<td th:text="${cliente.phone}"></td>
+					<td th:text="${cliente.department}"></td>
+					<td>	
+						<a th:href="@{/clientes/update/{id}(id=${cliente.id})}" class="btn btn-info btn-sm">Alterar</a>
+						<a th:href="@{/clientes/delete/{id}(id=${cliente.id})}" class="btn btn-danger btn-sm">Deletar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/}" class="btn btn-light mt-3">Voltar ao Menu</a>
+	</div>
+</body>
+</html>
