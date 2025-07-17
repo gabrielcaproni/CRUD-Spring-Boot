@@ -3,33 +3,34 @@
 <head>
 	<div th:replace="~{cabecalho :: head}"></div>
 	<title>Sistema de Chamados de TI</title>
-	<style>
-		.menu-container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 80vh;
+
+	<style th:inline="css">
+		body {
+			background-image: url([[@{/images/fundo.jpg}]]);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100vh;
 		}
-		.menu-item {
-			margin: 0 20px;
-		}
-		.menu-item .btn {
-			padding: 20px 40px;
-			font-size: 1.5rem;
-		}
+
+        .welcome-container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 10vh;
+            text-align: center; /* <<< ADICIONE ESTA LINHA PARA CENTRALIZAR O TEXTO */
+        }
 	</style>
 </head>
 <body>
-	<div class="container">
-		<h1 class="text-center my-4">Sistema de Chamados de TI</h1>
-		<div class="menu-container">
-			<div class="menu-item">
-				<a th:href="@{/clientes}" class="btn btn-primary">Gerenciar Clientes</a>
-			</div>
-			<div class="menu-item">
-				<a th:href="@{/chamados}" class="btn btn-secondary">Gerenciar Chamados</a>
-			</div>
-		</div>
-	</div>
+    <div th:replace="~{cabecalho :: navbar}"></div>
+
+    <div class="container">
+        <div class="welcome-container">
+            <h1 class="display-4">Bem-vindo ao Sistema de Gestão</h1>
+            <p class="lead">Use o menu de navegação acima para gerenciar Usuários e Clientes.</p>
+        </div>
+    </div>
 </body>
 </html>

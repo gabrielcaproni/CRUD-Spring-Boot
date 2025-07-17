@@ -33,7 +33,7 @@ public class UserController {
 		
 		model.addAttribute("usuarios", users);
 		
-		return "index.html";
+		return "user_lista.html";
 	}
 	
 	@GetMapping("/users/form")
