@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="cabecalho :: head"></div>
+    <div th:replace="~{cabecalho :: head}"></div>
     
     <title>Crud Manager - Chamado</title>
     <style>
-        /* Estilos adicionais específicos para este formulário se necessário */
         .form-section {
             padding: 15px;
             margin-bottom: 20px;
-            border: 1px solid #e0e0e0; /* Borda suave para as seções */
-            border-radius: 8px; /* Cantos arredondados para as seções */
-            background-color: #fcfcfc; /* Fundo levemente diferente para as seções */
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fcfcfc;
         }
         .form-section h4 {
-            color: #343a40; /* Cor escura para o título da seção */
+            color: #343a40;
             margin-bottom: 15px;
-            border-bottom: 1px solid #e9ecef; /* Linha de separação */
+            border-bottom: 1px solid #e9ecef;
             padding-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
+    <div th:replace="~{cabecalho :: navbar}"></div>
     <div class="container my-4">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -31,9 +31,9 @@
                       method="POST" 
                       th:action="@{/chamados/new}"
                       th:object="${chamado}">
-                    
+                      
                     <input type="hidden" id="id" th:field="*{id}">
-                    
+                      
                     <div class="form-section">
                         <h4>Detalhes do Chamado</h4>
                         <div class="form-group">
@@ -43,7 +43,7 @@
                                   class="text-danger d-block">
                             </span>
                             <input type="text" id="titulo" th:field="*{titulo}" 
-                                   class="form-control custom-input"
+                                   class="form-control"
                                    placeholder="Título breve do problema ou solicitação">
                         </div>
                         
@@ -54,7 +54,7 @@
                                   class="text-danger d-block">
                             </span>
                             <textarea id="descricao" th:field="*{descricao}" 
-                                      class="form-control custom-input" rows="4"
+                                      class="form-control" rows="4"
                                       placeholder="Descreva detalhadamente o problema ou solicitação"></textarea>
                         </div>
                         
@@ -65,7 +65,7 @@
                                   class="text-danger d-block">
                             </span>
                             <input type="date" id="dataAbertura" th:field="*{dataAbertura}" 
-                                   class="form-control custom-input">
+                                   class="form-control">
                         </div>
                     </div>
 
@@ -79,11 +79,11 @@
                                           th:errors="*{prioridade}"
                                           class="text-danger d-block">
                                     </span>
-                                    <select id="prioridade" th:field="*{prioridade}" class="form-control custom-select">
+                                    <select id="prioridade" th:field="*{prioridade}" class="form-control">
                                         <option value="">Selecione a Prioridade</option>
-                                        <option th:each="prioridade : ${T(br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado.Prioridade).values()}"
-                                                th:value="${prioridade}"
-                                                th:text="${prioridade}">
+                                        <option th:each="prioridadeOpt : ${T(br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado.Prioridade).values()}"
+                                                th:value="${prioridadeOpt}"
+                                                th:text="${prioridadeOpt}">
                                         </option>
                                     </select>
                                 </div>
@@ -95,11 +95,11 @@
                                           th:errors="*{status}"
                                           class="text-danger d-block">
                                     </span>
-                                    <select id="status" th:field="*{status}" class="form-control custom-select">
+                                    <select id="status" th:field="*{status}" class="form-control">
                                         <option value="">Selecione o Status</option>
-                                        <option th:each="status : ${T(br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado.Status).values()}"
-                                                th:value="${status}"
-                                                th:text="${status}">
+                                        <option th:each="statusOpt : ${T(br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado.Status).values()}"
+                                                th:value="${statusOpt}"
+                                                th:text="${statusOpt}">
                                         </option>
                                     </select>
                                 </div>
@@ -115,21 +115,20 @@
                                   th:errors="*{cliente}"
                                   class="text-danger d-block">
                             </span>
-                            <select id="cliente" th:field="*{cliente}" class="form-control custom-select">
+                            <select id="cliente" th:field="*{cliente}" class="form-control">
                                 <option value="">Selecione um Cliente</option>
                                 <option th:each="cli : ${todosClientes}"
                                         th:value="${cli.id}"
-                                        th:text="${cli.nome}">
-                                </option>
+                                        th:text="${cli.name}"> </option>
                             </select>
                         </div>
                     </div>
-                    
+                      
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary col-md-4 custom-button">
+                        <button type="submit" class="btn btn-primary col-md-4">
                             Cadastrar Chamado
                         </button>
-                        <a th:href="@{/chamados}" class="btn btn-secondary col-md-4 ml-2 custom-button">
+                        <a th:href="@{/chamados}" class="btn btn-secondary col-md-4 ml-2">
                             Cancelar
                         </a>
                     </div>
