@@ -6,11 +6,15 @@ import org.springframework.stereotype.Component;
 
 import br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Address;
 import br.edu.ifsuldeminas.mch.springbootcrud.model.entity.User;
-import br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Cliente; // 1. IMPORTAR A CLASSE CLIENTE
+import br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Cliente;
+import br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado; // IMPORTAR A CLASSE CHAMADO
 import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.AddressRepository;
 import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.UserRepository;
-import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.ClienteRepository; // 2. IMPORTAR O REPOSITÓRIO DO CLIENTE
+import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.ClienteRepository;
+import br.edu.ifsuldeminas.mch.springbootcrud.model.repository.ChamadoRepository; // IMPORTAR O REPOSITÓRIO DO CHAMADO
 import jakarta.transaction.Transactional;
+
+import java.time.LocalDate; // Importar LocalDate para a data do chamado
 
 @Component
 @Transactional
@@ -22,9 +26,11 @@ public class AtSystemStartup implements CommandLineRunner {
     @Autowired
     private AddressRepository addressRepository;
 
-    // 3. INJETAR O REPOSITÓRIO DO CLIENTE
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ChamadoRepository chamadoRepository; // INJETAR O REPOSITÓRIO DO CHAMADO
     
     @Override
     public void run(String... args) throws Exception {
@@ -71,6 +77,7 @@ public class AtSystemStartup implements CommandLineRunner {
         userRepository.save(luiza);
         userRepository.save(noe);
 
+        // Bloco de código para criar Clientes (existente)
         Cliente cliente1 = new Cliente();
         cliente1.setName("Tech Solutions Ltda");
         cliente1.setEmail("contato@techsolutions.com");
@@ -92,5 +99,35 @@ public class AtSystemStartup implements CommandLineRunner {
         clienteRepository.save(cliente1);
         clienteRepository.save(cliente2);
         clienteRepository.save(cliente3);
+        clienteRepository.flush(); // Garante que os IDs dos clientes sejam gerados antes de usar nos chamados
+
+        // Bloco de código para criar Chamados
+        Chamado chamado1 = new Chamado();
+        chamado1.setTitulo("Problema de rede no escritório A");
+        chamado1.setDescricao("Conexão intermitente na sala de reunião.");
+        chamado1.setDataAbertura(LocalDate.now()); // Data atual
+        chamado1.setPrioridade(Chamado.Prioridade.ALTA);
+        chamado1.setStatus(Chamado.Status.ABERTO);
+        chamado1.setCliente(cliente1); // Associar ao cliente1
+        
+        Chamado chamado2 = new Chamado();
+        chamado2.setTitulo("Solicitação de instalação de software X");
+        chamado2.setDescricao("Instalar software X nas máquinas do departamento financeiro.");
+        chamado2.setDataAbertura(LocalDate.now());
+        chamado2.setPrioridade(Chamado.Prioridade.MEDIA);
+        chamado2.setStatus(Chamado.Status.EM_ANDAMENTO);
+        chamado2.setCliente(cliente2); // Associar ao cliente2
+
+        Chamado chamado3 = new Chamado();
+        chamado3.setTitulo("Erro no sistema de e-mail marketing");
+        chamado3.setDescricao("Campanhas de e-mail não estão sendo enviadas.");
+        chamado3.setDataAbertura(LocalDate.now());
+        chamado3.setPrioridade(Chamado.Prioridade.ALTA);
+        chamado3.setStatus(Chamado.Status.ABERTO);
+        chamado3.setCliente(cliente3); // Associar ao cliente3
+        
+        chamadoRepository.save(chamado1);
+        chamadoRepository.save(chamado2);
+        chamadoRepository.save(chamado3);
     }
 }
