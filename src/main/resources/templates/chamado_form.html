@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="cabecalho :: head"></div>
+    
+    <title>Crud Manager - Chamado</title>
+    <style>
+        /* Estilos adicionais específicos para este formulário se necessário */
+        .form-section {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0; /* Borda suave para as seções */
+            border-radius: 8px; /* Cantos arredondados para as seções */
+            background-color: #fcfcfc; /* Fundo levemente diferente para as seções */
+        }
+        .form-section h4 {
+            color: #343a40; /* Cor escura para o título da seção */
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e9ecef; /* Linha de separação */
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mb-4 text-center">Formulário de Chamado</h2>
+                <form action="#" 
+                      method="POST" 
+                      th:action="@{/chamados/new}"
+                      th:object="${chamado}">
+                    
+                    <input type="hidden" id="id" th:field="*{id}">
+                    
+                    <div class="form-section">
+                        <h4>Detalhes do Chamado</h4>
+                        <div class="form-group">
+                            <label for="titulo">Título:</label>
+                            <span th:if="${#fields.hasErrors('titulo')}"
+                                  th:errors="*{titulo}"
+                                  class="text-danger d-block">
+                            </span>
+                            <input type="text" id="titulo" th:field="*{titulo}" 
+                                   class="form-control custom-input"
+                                   placeholder="Título breve do problema ou solicitação">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descricao">Descrição:</label>
+                            <span th:if="${#fields.hasErrors('descricao')}"
+                                  th:errors="*{descricao}"
+                                  class="text-danger d-block">
+                            </span>
+                            <textarea id="descricao" th:field="*{descricao}" 
+                                      class="form-control custom-input" rows="4"
+                                      placeholder="Descreva detalhadamente o problema ou solicitação"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dataAbertura">Data de Abertura:</label>
+                            <span th:if="${#fields.hasErrors('dataAbertura')}"
+                                  th:errors="*{dataAbertura}"
+                                  class="text-danger d-block">
+                            </span>
+                            <input type="date" id="dataAbertura" th:field="*{dataAbertura}" 
+                                   class="form-control custom-input">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Classificação</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="prioridade">Prioridade:</label>
+                                    <span th:if="${#fields.hasErrors('prioridade')}"
+                                          th:errors="*{prioridade}"
+                                          class="text-danger d-block">
+                                    </span>
+                                    <select id="prioridade" th:field="*{prioridade}" class="form-control custom-select">
+                                        <option value="">Selecione a Prioridade</option>
+                                        <option th:each="prioridade : ${T(br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado.Prioridade).values()}"
+                                                th:value="${prioridade}"
+                                                th:text="${prioridade}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status:</label>
+                                    <span th:if="${#fields.hasErrors('status')}"
+                                          th:errors="*{status}"
+                                          class="text-danger d-block">
+                                    </span>
+                                    <select id="status" th:field="*{status}" class="form-control custom-select">
+                                        <option value="">Selecione o Status</option>
+                                        <option th:each="status : ${T(br.edu.ifsuldeminas.mch.springbootcrud.model.entity.Chamado.Status).values()}"
+                                                th:value="${status}"
+                                                th:text="${status}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Cliente Associado</h4>
+                        <div class="form-group">
+                            <label for="cliente">Cliente:</label>
+                            <span th:if="${#fields.hasErrors('cliente')}"
+                                  th:errors="*{cliente}"
+                                  class="text-danger d-block">
+                            </span>
+                            <select id="cliente" th:field="*{cliente}" class="form-control custom-select">
+                                <option value="">Selecione um Cliente</option>
+                                <option th:each="cli : ${todosClientes}"
+                                        th:value="${cli.id}"
+                                        th:text="${cli.nome}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary col-md-4 custom-button">
+                            Cadastrar Chamado
+                        </button>
+                        <a th:href="@{/chamados}" class="btn btn-secondary col-md-4 ml-2 custom-button">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>      
+        </div>
+    </div>
+</body>
+</html>

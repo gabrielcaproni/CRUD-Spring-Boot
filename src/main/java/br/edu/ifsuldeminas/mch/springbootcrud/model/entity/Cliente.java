@@ -31,8 +31,8 @@ public class Cliente {
 
     private String department;
 
-    // @OneToMany(mappedBy = "cliente")
-    // private List<Chamado> chamados;
+    @OneToMany(mappedBy = "cliente")
+     private List<Chamado> chamados;
 
     public int getId() {
         return id;
