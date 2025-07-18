@@ -25,27 +25,26 @@ public class ChamadoController {
     private ChamadoRepository chamadoRepository;
 
     @Autowired
-    private ClienteRepository clienteRepository; // Injeção do ClienteRepository
+    private ClienteRepository clienteRepository;
 
     @GetMapping("/chamados")
     public String chamados(Model model) {
         List<Chamado> chamados = chamadoRepository.findAll();
         model.addAttribute("chamados", chamados);
-        return "chamado_lista.html"; // Nome da sua página de listagem de chamados
+        return "chamado_lista.html";
     }
 
     @GetMapping("/chamados/form")
     public String chamadoForm(@ModelAttribute("chamado") Chamado chamado, Model model) {
-        // Adiciona a lista de clientes ao modelo para o formulário
         List<Cliente> todosClientes = clienteRepository.findAll();
         model.addAttribute("todosClientes", todosClientes);
-        return "chamado_form.html"; // Nome da sua página de formulário de chamado
+        return "chamado_form.html";
     }
 
     @PostMapping("/chamados/new")
     public String chamadoSave(@Valid @ModelAttribute("chamado") Chamado chamado,
                               BindingResult validationResults,
-                              Model model) { // Adicione Model para poder passar a lista de clientes novamente em caso de erro
+                              Model model) {
         if (validationResults.hasErrors()) {
             List<Cliente> todosClientes = clienteRepository.findAll();
             model.addAttribute("todosClientes", todosClientes);
@@ -65,7 +64,6 @@ public class ChamadoController {
         Chamado chamado = chamadoOpt.get();
         model.addAttribute("chamado", chamado);
 
-        // Adiciona a lista de clientes para o formulário de atualização
         List<Cliente> todosClientes = clienteRepository.findAll();
         model.addAttribute("todosClientes", todosClientes);
 
